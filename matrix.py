@@ -28,7 +28,18 @@ zero_count = 0
 window_size = 13
 
 for i in range(len(NumbersList)):
-    current_product *= NumbersList[i]
-    print(current_product)
+    if NumbersList[i] == 0:
+        zero_count += 1
+    else:
+        current_product *= NumbersList[i]
+
     if i >= window_size:
-        break
+        if NumbersList[i - window_size] == 0:
+            zero_count -= 1
+        else:
+            current_product //= NumbersList[i - window_size]
+
+    if i >= window_size - 1 and zero_count == 0:
+        max_product = max(max_product, current_product)
+
+print(max_product)
